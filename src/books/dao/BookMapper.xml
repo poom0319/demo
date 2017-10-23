@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="books.dao.BookMapper">
+
+	<select id="getAllBooks" resultType="book">
+		SELECT * FROM book ORDER BY publishDate DESC LIMIT #{from},#{pageSize}
+	</select>
+	<select id="count" resultType="Integer">
+		select count(*) from book
+	</select>
+	
+	<insert id="addBook" parameterType="book">
+		insert into book (bookName,author,publish,publishDate,page,price,content)
+			values(#{bookName},#{author},#{publish},#{publishDate},#{page},#{price},#{content})
+	</insert>
+	
+	<update id="updateBook" parameterType="book">
+		update book set bookName=#{bookName},author=#{author},publish=#{publish},publishDate=#{publishDate},
+			page=#{page},price=#{price},content=#{content} where id=#{id}
+	</update>
+	
+	<select id="getBookById" resultType="book" parameterType="Integer">
+		SELECT * FROM book where id=#{id}
+	</select>
+	
+	<delete id="deleteBookById" parameterType="Integer">
+		delete from book where id=#{id}
+	</delete>
+</mapper>
